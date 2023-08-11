@@ -1,0 +1,31 @@
+.DS_Store
+VOLUMES/
+REact-redux-ts-best-practice/node_modules
+# Logs
+REact-redux-ts-best-practice/logs
+REact-redux-ts-best-practice/*.log
+REact-redux-ts-best-practice/npm-debug.log*
+REact-redux-ts-best-practice/yarn-debug.log*
+REact-redux-ts-best-practice/yarn-error.log*
+REact-redux-ts-best-practice/pnpm-debug.log*
+REact-redux-ts-best-practice/lerna-debug.log*
+
+
+REact-redux-ts-best-practice/dist
+REact-redux-ts-best-practice/dist-ssr
+REact-redux-ts-best-practice/*.local
+
+# Editor directories and files
+REact-redux-ts-best-practice/.vscode/*
+REact-redux-ts-best-practice/!.vscode/extensions.json
+REact-redux-ts-best-practice/.idea
+REact-redux-ts-best-practice/.DS_Store
+REact-redux-ts-best-practice/*.suo
+REact-redux-ts-best-practice/*.ntvs*
+REact-redux-ts-best-practice/*.njsproj
+REact-redux-ts-best-practice/*.sln
+REact-redux-ts-best-practice/*.sw?
+
+Server-react-best/node_modules
+Server-react-best/.env
+
