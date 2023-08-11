@@ -3,7 +3,10 @@ const app = express();
 const port = 4000;
 const http = require("http");
 const cors = require("cors");
+const harperSaveMessage = require("./services/harper-save-message");
+require("dotenv").config();
 
+console.log(process.env.HARPERDB_URL);
 const { Server } = require("socket.io");
 const CHAT_BOT = "ChatBot";
 
@@ -21,6 +24,7 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
   console.log(`User connected ${socket.id}`);
 
+  //join_roomm ilnstenner
   socket.on("join_room", (data) => {
     const { username, room } = data;
     console.log(username, room);
@@ -45,6 +49,15 @@ io.on("connection", (socket) => {
     console.log(chatRoomUsers);
     socket.to(room).emit("chatroom_users", chatRoomUsers);
     socket.emit("chatroom_users", chatRoomUsers);
+  });
+
+  //Send message listner
+  socket.on("send_message", (data) => {
+    const { message, username, room, __createdtime__ } = data;
+    io.in(room).emit("receive_message", data);
+    harperSaveMessage(message, username, room, __createdtime__)
+      .then((response) => console.log(response))
+      .catch((err) => console.log(err));
   });
 });
 
