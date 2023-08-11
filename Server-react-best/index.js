@@ -4,6 +4,7 @@ const port = 4000;
 const http = require("http");
 const cors = require("cors");
 const harperSaveMessage = require("./services/harper-save-message");
+const harperGetMessages = require("./services/harper-get-messages");
 require("dotenv").config();
 
 console.log(process.env.HARPERDB_URL);
@@ -43,12 +44,21 @@ io.on("connection", (socket) => {
       __createdtime__,
     });
 
+    harperGetMessages(room)
+      .then((last100Messages) => {
+        console.log("get message", last100Messages);
+        socket.emit("last_100_messages", last100Messages);
+      })
+      .catch((err) => console.log(err));
+
     chatRoom = room;
     allUsers.push({ id: socket.id, username, room });
     chatRoomUsers = allUsers.filter((user) => user.room == room);
     console.log(chatRoomUsers);
     socket.to(room).emit("chatroom_users", chatRoomUsers);
     socket.emit("chatroom_users", chatRoomUsers);
+
+    //// Get last 100 messages sent in the chat room
   });
 
   //Send message listner
